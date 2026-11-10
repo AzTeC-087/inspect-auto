@@ -15,13 +15,26 @@ Built with AI assistance (Claude).
 | Java | `java/InspectAuto.java` | Needs Java 17+. In the `java` folder run `java InspectAuto.java`, then open http://localhost:8080 |
 
 Only the HTML copy is on the live link (GitHub Pages can't run Java).
-If you change cars in one copy, change them in the other too so they match.
+The Java copy does **not** have the garage registration page, the `FEATURES` switches or the phone-layout fixes, so demo the HTML copy. If you change cars in one copy, change them in the other too so they match.
 
 ## How to demo (from our formative, User 001)
 
 1. Open the listings page and click a car.
 2. Scroll to **Mechanical Condition**: each area (engine, brakes, tyres, etc.) shows a status, the mechanic's notes and an estimated repair cost.
 3. Click **Back to listings**, open a second car, and check its report shows different results (e.g. Vauxhall Corsa vs Toyota Yaris).
+
+## How to demo (U002-1: register approved garages)
+
+1. Click **Admin: garages** in the header.
+2. Click **Register garage** with the form empty: each missing or invalid field shows an error.
+3. Fill in every field (e.g. postcode `LU1 3AA`, phone `01582 123456`) and click **Register garage**: a confirmation appears and the garage is added to the **Registered garages** list.
+4. Refresh the page: the garage is still listed. **Reset sample garages** restores the starting list.
+
+The form fields are a draft until the task "Define the garage registration fields" is agreed. Only registering is built; managing (editing or removing) garages is U002-2, which is not in Sprint 1.
+
+## What is in Sprint 1
+
+Sprint 1 covers User 001 and U002-1 only. Three things in the first version belonged to other backlog stories, so they are switched off in `index.html`: the filter bar (User 003), the inspection rating (User 005) and the "HPI clear" / "Seller ID verified" badges (User 006). To show one again, change its flag in `FEATURES` (end of SECTION 1) from `false` to `true`.
 
 ## How to edit (no install needed)
 
