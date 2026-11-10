@@ -2,7 +2,7 @@
 
 A clickable prototype for **User 001**: *"As a customer I want to view the mechanical condition of a vehicle so that I have an idea of what I'm purchasing."*
 
-**Live site:** LIVE_URL
+**Live site:** https://aztec-087.github.io/inspect-auto/
 
 All cars, garages and figures are **invented sample data**.
 Built with AI assistance (Claude).
