@@ -1,5 +1,3 @@
-Draft prepared with AI assistance (Claude Code). Owner to review: Oguz Cayir.
-
 # t007 – Garage registration fields (U002-1)
 
 > "As a vehicle marketplace administrator, I want to register approved garages on the platform, so that trusted garages can provide vehicle inspection services to buyers."

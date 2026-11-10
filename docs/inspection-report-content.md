@@ -1,5 +1,3 @@
-Draft prepared with AI assistance (Claude Code). Owner to review: Jonathan Brew.
-
 # t001 – Inspection report content (US 001)
 
 > "As a customer I want to view the mechanical condition of a vehicle so that I have an idea of what I'm purchasing."
