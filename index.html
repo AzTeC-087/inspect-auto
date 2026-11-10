@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <!--
-  Inspect Auto – clickable prototype for Sprint 1 (User 001: view a car's mechanical condition).
+  Inspect Auto – clickable prototype for Sprint 1 (User 001: view a car's mechanical condition;
+  U002-1: an administrator registers an approved garage).
   HTML VERSION: this whole site is this one file. Open it in any browser, no internet needed.
   HOW TO EDIT:
     - Add / change cars ......... the "cars" list in the <script> section (SECTION 1)
+    - Show or hide extra features  FEATURES (end of SECTION 1)
     - Change the filters ........ listPage() (SECTION 3)
     - Change the car details page detailPage() (SECTION 4)
+    - Garage registration (U002-1)  SECTION 6
     - Change colours / layout ... the <style> section below
   All cars, garages and figures are invented sample data.
 -->
@@ -34,7 +37,7 @@
   .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.15); }
   .photo { height: 150px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; font-weight: 600; }
   .card .body { padding: 12px 14px; }
-  .card h3 { margin: 0 0 4px; font-size: 17px; }
+  .card h2 { margin: 0 0 4px; font-size: 17px; }
   .price { font-size: 20px; font-weight: 700; color: #12324f; }
   .meta { font-size: 13px; color: #555; margin-top: 4px; }
   .badge { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 10px; margin: 6px 6px 0 0; }
@@ -44,6 +47,7 @@
   /* Car details page */
   .back { display: inline-block; margin-bottom: 12px; color: #12324f; }
   .detail { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .detail h2 { font-size: 18px; margin: 18px 0 8px; }
   .gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 8px; margin-bottom: 16px; }
   .gallery .photo { height: 120px; border-radius: 6px; font-size: 14px; }
   .gallery .photo:first-child { grid-row: span 2; height: 248px; font-size: 18px; }
@@ -58,17 +62,56 @@
   .Good { background: #e3f5e8; color: #1b6b34; }
   .Fair { background: #fff4d6; color: #8a5a00; }
   .Needs { background: #fde4e4; color: #a12020; }
-  .total td { font-weight: 700; }
+  .total td, .total th { font-weight: 700; }
   .note { font-size: 13px; color: #555; margin-top: 10px; }
+
+  /* ===== ADDED: navigation, headings, keyboard focus, footer ===== */
+  header { flex-wrap: wrap; }
+  header nav { margin-left: auto; display: flex; gap: 18px; }
+  header nav a { font-size: 14px; font-weight: 400; text-decoration: underline; }
+  header nav a[aria-current="page"] { font-weight: 700; }
+  h1 { font-size: 24px; margin: 4px 0 12px; }
+  .sr { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  a:focus-visible, select:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #f5a623; outline-offset: 2px; }
+  footer { max-width: 1100px; margin: 0 auto; padding: 4px 20px 28px; font-size: 13px; color: #555; }
+
+  /* ADDED: garage registration page (U002-1) */
+  .form { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px 18px; align-items: start; }
+  .fld { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .fld label { font-size: 14px; font-weight: 600; }
+  .fld .hint { font-size: 12px; color: #555; }
+  .fld input { padding: 8px; border: 1px solid #8a94a0; border-radius: 4px; font: inherit; min-width: 0; }
+  .fld input[aria-invalid="true"] { border-color: #a12020; background: #fff8f8; }
+  .err { font-size: 13px; color: #a12020; }
+  .form .actions { grid-column: 1 / -1; display: flex; gap: 10px; }
+  .btn { padding: 9px 16px; border: 0; border-radius: 6px; background: #12324f; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+  .btn.ghost { background: #fff; color: #12324f; border: 1px solid #12324f; }
+  .okmsg { background: #e3f5e8; color: #1b6b34; border-radius: 6px; padding: 10px 14px; margin: 0 0 14px; font-weight: 600; }
+  .okmsg:focus { outline: 3px solid #f5a623; }
+  .tscroll { overflow-x: auto; }
+
+  /* ADDED: on phones each table row becomes a small stacked card, so nothing runs off the screen */
+  @media (max-width: 640px) {
+    main { padding: 14px; }
+    .tbl, .tbl tbody, .tbl tfoot, .tbl tr, .tbl th, .tbl td { display: block; }
+    .tbl thead { position: absolute; left: -9999px; }
+    .tbl tr { border-bottom: 1px solid #e3e6ea; padding: 8px 0; }
+    .tbl td, .tbl th { border: 0; padding: 3px 0; background: none; }
+    .tbl td { display: flex; gap: 10px; }
+    .tbl td::before { content: attr(data-label); font-weight: 600; min-width: 108px; color: #555; flex: none; }
+    .gallery .photo:first-child { height: 200px; }
+  }
 </style>
 </head>
 <body>
 <header>
   <a href="#/">Inspect Auto</a>
   <span>Every car inspected by a partner mechanic before it is listed</span>
+  <nav aria-label="Main"><a href="#/">Cars</a><a href="#/admin/garages">Admin: garages</a></nav>
 </header>
-<!-- The page content is drawn here by the script below (listings page or car details page). -->
+<!-- The page content is drawn here by the script below (listings, car details or garage registration). -->
 <main id="app"></main>
+<footer>Sample data for a university project (CS3617, Group A11). All cars, garages and figures are invented.</footer>
 
 <script>
 // ===== SECTION 1: CAR DATA (all invented for the prototype) =====
@@ -132,92 +175,209 @@ const cars = [
       ["Electrics", "Good", "All working; remaining manufacturer warranty until 2027.", 0] ] }
 ];
 
+// Sprint 1 commits only User 001 (view the mechanical condition) and U002-1 (register approved garages).
+// The extras below belong to backlog stories that are NOT in Sprint 1, so they are switched off.
+// Set a flag to true to show it again.
+//   filters     = filter bar on the listings page ........ User 003
+//   rating      = "Inspection rating x / 5" badge ......... User 005
+//   trustBadges = "HPI clear" and "Seller ID verified" .... User 006 and the HPI check
+const FEATURES = { filters: false, rating: false, trustBadges: false };
+
 // ===== SECTION 2: HELPERS =====
 // filters = what the user has picked in the filter bar ("" means Any).
 const filters = { make: "", maxPrice: "", maxMiles: "", location: "" };
 const gbp = n => "£" + n.toLocaleString("en-GB");
 const miles = n => n.toLocaleString("en-GB") + " miles";
-const photo = (c, label) => `<div class="photo" style="background:${c.colour}">${label}</div>`;
+const esc = s => String(s).replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+const photo = (c, label) => `<div class="photo" role="img" aria-label="${label} (placeholder image)" style="background:${c.colour}">${label}</div>`;
 const options = (values, chosen, fmt = v => v) =>
   values.map(v => `<option value="${v}" ${String(v) === chosen ? "selected" : ""}>${fmt(v)}</option>`).join("");
+const ratingBadge = c => FEATURES.rating ? `<span class="badge rating">Inspection rating ${c.rating.toFixed(1)} / 5</span>` : "";
+const trustBadges = long => FEATURES.trustBadges
+  ? `<span class="badge ok">${long ? "HPI clear: no finance, not written off, not stolen" : "HPI clear"}</span><span class="badge ok">Seller ID verified</span>` : "";
 
 // ===== SECTION 3: LISTINGS PAGE =====
-// Keeps only the cars that match every chosen filter, then draws the filter bar and one card per car.
+// Draws one card per car (and the filter bar if FEATURES.filters is true).
 // To change the price / mileage choices, edit the number lists in the Max price / Max mileage <select>s.
 function listPage() {
-  const shown = cars.filter(c =>
+  const shown = !FEATURES.filters ? cars : cars.filter(c =>
     (!filters.make || c.make === filters.make) &&
     (!filters.maxPrice || c.price <= +filters.maxPrice) &&
     (!filters.maxMiles || c.mileage <= +filters.maxMiles) &&
     (!filters.location || c.location === filters.location));
   const makes = [...new Set(cars.map(c => c.make))].sort();
   const places = [...new Set(cars.map(c => c.location))].sort();
-  return `
+  const filterBar = !FEATURES.filters ? "" : `
     <div class="filters">
       <label>Make<select data-f="make"><option value="">Any</option>${options(makes, filters.make)}</select></label>
       <label>Max price<select data-f="maxPrice"><option value="">Any</option>${options([5000, 7500, 10000, 12500], filters.maxPrice, gbp)}</select></label>
       <label>Max mileage<select data-f="maxMiles"><option value="">Any</option>${options([30000, 50000, 75000, 100000], filters.maxMiles, miles)}</select></label>
       <label>Location<select data-f="location"><option value="">Any</option>${options(places, filters.location)}</select></label>
       <button id="reset">Clear filters</button>
-    </div>
-    <div class="count">${shown.length} inspected car${shown.length === 1 ? "" : "s"} found</div>
+    </div>`;
+  return `
+    <h1>Inspected cars</h1>
+    ${filterBar}
+    <div class="count" aria-live="polite">${shown.length} inspected car${shown.length === 1 ? "" : "s"} found</div>
     ${shown.length ? `<div class="grid">${shown.map(c => `
       <a class="card" href="#/car/${c.id}">
         ${photo(c, c.make + " " + c.model)}
         <div class="body">
-          <h3>${c.year} ${c.make} ${c.model}</h3>
+          <h2>${c.year} ${c.make} ${c.model}</h2>
           <div class="price">${gbp(c.price)}</div>
           <div class="meta">${miles(c.mileage)} · ${c.fuel} · ${c.gearbox} · ${c.location}</div>
-          <span class="badge rating">Inspection rating ${c.rating.toFixed(1)} / 5</span>
-          <span class="badge ok">HPI clear</span><span class="badge ok">Seller ID verified</span>
+          <span class="badge ok">Inspected ${c.inspected}</span>${ratingBadge(c)}${trustBadges(false)}
         </div>
       </a>`).join("")}</div>` : `<div class="empty">No cars match these filters.</div>`}`;
 }
 
 // ===== SECTION 4: CAR DETAILS PAGE =====
-// Photos (placeholders), specs, badges and the Mechanical Condition table with a total repair cost.
+// Photos (placeholders), specs and the Mechanical Condition table with a total repair cost.
 function detailPage(c) {
   const total = c.report.reduce((sum, r) => sum + r[3], 0);
   return `
     <a class="back" href="#/">← Back to listings</a>
     <div class="detail">
       <div class="gallery">${photo(c, "Front")}${photo(c, "Interior")}${photo(c, "Rear")}${photo(c, "Engine bay")}${photo(c, "Boot")}</div>
-      <h2 style="margin:0">${c.year} ${c.make} ${c.model}</h2>
+      <h1 style="margin:0">${c.year} ${c.make} ${c.model}</h1>
       <div class="price">${gbp(c.price)}</div>
-      <span class="badge rating">Inspection rating ${c.rating.toFixed(1)} / 5</span>
-      <span class="badge ok">HPI clear: no finance, not written off, not stolen</span>
-      <span class="badge ok">Seller ID verified</span>
+      ${ratingBadge(c)}${trustBadges(true)}
       <div class="specs">
         <div><b>Mileage</b>${miles(c.mileage)}</div><div><b>Fuel</b>${c.fuel}</div>
         <div><b>Gearbox</b>${c.gearbox}</div><div><b>Previous owners</b>${c.owners}</div>
         <div><b>Location</b>${c.location}</div><div><b>Inspected</b>${c.inspected}</div>
       </div>
-      <h3>Mechanical Condition</h3>
-      <table>
-        <tr><th>Area</th><th>Status</th><th>Mechanic's notes</th><th>Est. repair cost</th></tr>
+      <h2>Mechanical Condition</h2>
+      <table class="tbl">
+        <caption class="sr">Mechanical condition by area: status, mechanic's notes and estimated repair cost</caption>
+        <thead><tr><th scope="col">Area</th><th scope="col">Status</th><th scope="col">Mechanic's notes</th><th scope="col">Est. repair cost</th></tr></thead>
+        <tbody>
         ${c.report.map(([area, status, notes, cost]) => `
-          <tr><td>${area}</td><td><span class="st ${status.split(" ")[0]}">${status}</span></td><td>${notes}</td><td>${cost ? gbp(cost) : "–"}</td></tr>`).join("")}
-        <tr class="total"><td colspan="3">Total estimated repair cost</td><td>${total ? gbp(total) : "£0"}</td></tr>
+          <tr><td data-label="Area">${area}</td><td data-label="Status"><span class="st ${status.split(" ")[0]}">${status}</span></td><td data-label="Mechanic's notes">${notes}</td><td data-label="Est. repair cost">${cost ? gbp(cost) : "–"}</td></tr>`).join("")}
+        </tbody>
+        <tfoot><tr class="total"><th scope="row" colspan="3">Total estimated repair cost</th><td data-label="Total">${total ? gbp(total) : "£0"}</td></tr></tfoot>
       </table>
       <p class="note">Inspected by ${c.garage}. Prototype: all cars, garages and figures are invented sample data.</p>
     </div>`;
 }
 
-// ===== SECTION 5: PAGE SWITCHING =====
-// The address ending decides the page: #/car/3 shows car 3, anything else shows the listings.
-// This is what makes the Back button and car links work without extra files.
-function render() {
-  const app = document.getElementById("app");
-  const m = location.hash.match(/^#\/car\/(\d+)$/);
-  const car = m && cars.find(c => c.id === +m[1]);
-  app.innerHTML = car ? detailPage(car) : listPage();
-  window.scrollTo(0, 0);
-  if (car) return;
-  app.querySelectorAll("select").forEach(s => s.onchange = () => { filters[s.dataset.f] = s.value; render(); });
-  document.getElementById("reset").onclick = () => { Object.keys(filters).forEach(k => filters[k] = ""); render(); };
+function missingPage() {
+  return `<h1>Vehicle not found</h1><p>We could not find that car. It may have been removed.</p><a class="back" href="#/">← Back to listings</a>`;
 }
 
-window.addEventListener("hashchange", render);
+// ===== SECTION 6: GARAGE REGISTRATION (User story U002-1) =====
+// "As a vehicle marketplace administrator, I want to register approved garages on the platform,
+//  so that trusted garages can provide vehicle inspection services to buyers."
+// DRAFT fields: the team confirms the final list in the task "Define the garage registration fields".
+// Only registering is built. Editing / removing garages is U002-2 and is not part of Sprint 1.
+// Registered garages are kept in this browser (localStorage) so the demo survives a refresh.
+const GARAGE_FIELDS = [
+  { id: "name",     label: "Garage name",        check: v => v ? "" : "Enter the garage name." },
+  { id: "address",  label: "Street address",     check: v => v ? "" : "Enter the street address." },
+  { id: "town",     label: "Town or city",       check: v => v ? "" : "Enter the town or city." },
+  { id: "postcode", label: "Postcode",           hint: "For example LU1 3AA", check: v => /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i.test(v) ? "" : "Enter a valid UK postcode, for example LU1 3AA." },
+  { id: "email",    label: "Contact email",      type: "email", check: v => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v) ? "" : "Enter a valid email address, for example info@garage.co.uk." },
+  { id: "phone",    label: "Contact phone",      type: "tel", hint: "For example 01582 123456", check: v => /^0\d{9,10}$/.test(v.replace(/[\s()-]/g, "").replace(/^\+44/, "0")) ? "" : "Enter a UK phone number, for example 01582 123456." },
+  { id: "ref",      label: "Approval reference", hint: "For example a trade body membership number", check: v => v.length >= 4 ? "" : "Enter the approval reference (at least 4 characters)." }
+];
+const GARAGE_KEY = "inspectAutoGarages";
+// Starting list = the partner garages already named on the cars above.
+const seedGarages = () => cars.map(c => ({ name: c.garage.replace(/ \(partner garage\)$/, ""), address: "", town: c.location, postcode: "", email: "", phone: "", ref: "", registered: "Sample" }));
+function loadGarages() {
+  try { const s = JSON.parse(localStorage.getItem(GARAGE_KEY)); if (Array.isArray(s) && s.length) return s; } catch (e) {}
+  return seedGarages();
+}
+function saveGarages() { try { localStorage.setItem(GARAGE_KEY, JSON.stringify(garages)); } catch (e) {} }
+let garages = loadGarages();
+let adminState = { values: {}, errors: {}, done: "" };
+const cell = v => v ? esc(v) : "–";
+
+function adminPage() {
+  const s = adminState;
+  return `
+    <h1>Register an approved garage</h1>
+    <p class="note">Administrator page. Prototype: there is no login, and the form fields are a draft.</p>
+    ${s.done ? `<div class="okmsg" id="done" role="status" tabindex="-1">${esc(s.done)}</div>` : ""}
+    <form id="garage-form" class="detail form" novalidate>
+      ${GARAGE_FIELDS.map(f => `
+        <div class="fld">
+          <label for="g-${f.id}">${f.label}</label>
+          ${f.hint ? `<span class="hint" id="h-${f.id}">${f.hint}</span>` : ""}
+          <input id="g-${f.id}" name="${f.id}" type="${f.type || "text"}" value="${esc(s.values[f.id] || "")}" autocomplete="off"
+            ${s.errors[f.id] ? `aria-invalid="true" aria-describedby="e-${f.id}"` : (f.hint ? `aria-describedby="h-${f.id}"` : "")}>
+          ${s.errors[f.id] ? `<span class="err" id="e-${f.id}">${s.errors[f.id]}</span>` : ""}
+        </div>`).join("")}
+      <div class="actions"><button class="btn" type="submit">Register garage</button></div>
+    </form>
+    <h2>Registered garages (${garages.length})</h2>
+    <div class="tscroll"><table class="tbl">
+      <thead><tr><th scope="col">Garage</th><th scope="col">Town</th><th scope="col">Postcode</th><th scope="col">Email</th><th scope="col">Phone</th><th scope="col">Approval ref</th><th scope="col">Registered</th></tr></thead>
+      <tbody>${garages.map(g => `
+        <tr><td data-label="Garage">${cell(g.name)}</td><td data-label="Town">${cell(g.town)}</td><td data-label="Postcode">${cell(g.postcode)}</td><td data-label="Email">${cell(g.email)}</td><td data-label="Phone">${cell(g.phone)}</td><td data-label="Approval ref">${cell(g.ref)}</td><td data-label="Registered">${cell(g.registered)}</td></tr>`).join("")}
+      </tbody></table></div>
+    <p class="note"><button class="btn ghost" id="reset-garages" type="button">Reset sample garages</button></p>`;
+}
+
+function wireAdmin(app) {
+  const form = document.getElementById("garage-form");
+  if (!form) return;
+  form.onsubmit = e => {
+    e.preventDefault();
+    const values = {}, errors = {};
+    GARAGE_FIELDS.forEach(f => values[f.id] = form.elements[f.id].value.trim());
+    GARAGE_FIELDS.forEach(f => { const m = f.check(values[f.id]); if (m) errors[f.id] = m; });
+    const norm = p => (p || "").replace(/\s/g, "").toUpperCase();
+    if (!errors.name && !errors.postcode && garages.some(g => g.name.toLowerCase() === values.name.toLowerCase() && norm(g.postcode) === norm(values.postcode)))
+      errors.name = "A garage with this name and postcode is already registered.";
+    if (Object.keys(errors).length) {
+      adminState = { values, errors, done: "" };
+      render({ keepScroll: true });
+      const first = app.querySelector('[aria-invalid="true"]'); if (first) first.focus();
+      return;
+    }
+    garages.push({ ...values, postcode: values.postcode.toUpperCase(), registered: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) });
+    saveGarages();
+    adminState = { values: {}, errors: {}, done: values.name + " has been registered as an approved garage." };
+    render({ keepScroll: true });
+    const done = document.getElementById("done"); if (done) done.focus();
+  };
+  document.getElementById("reset-garages").onclick = () => {
+    garages = seedGarages(); saveGarages();
+    adminState = { values: {}, errors: {}, done: "Sample garages restored." };
+    render({ keepScroll: true });
+  };
+}
+
+// ===== SECTION 5: PAGE SWITCHING =====
+// The address ending decides the page: #/car/3 shows car 3, #/admin/garages shows the garage form,
+// anything else shows the listings. This is what makes the Back button and links work without extra files.
+function render(opts = {}) {
+  const app = document.getElementById("app");
+  const hash = location.hash;
+  const m = hash.match(/^#\/car\/(\d+)$/);
+  const car = m && cars.find(c => c.id === +m[1]);
+  let html, title;
+  if (hash === "#/admin/garages") { html = adminPage(); title = "Register a garage"; }
+  else if (car) { html = detailPage(car); title = `${car.year} ${car.make} ${car.model}`; }
+  else if (m) { html = missingPage(); title = "Vehicle not found"; }
+  else { html = listPage(); title = "Inspected cars"; }
+  app.innerHTML = html;
+  document.title = title + " – Inspect Auto";
+  if (!opts.keepScroll) window.scrollTo(0, 0);
+  document.querySelectorAll("header nav a").forEach(a => {
+    const admin = a.getAttribute("href") === "#/admin/garages";
+    if (admin === (hash === "#/admin/garages")) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  });
+  app.querySelectorAll("select[data-f]").forEach(s => s.onchange = () => {
+    const f = s.dataset.f; filters[f] = s.value; render({ keepScroll: true });
+    const again = app.querySelector(`select[data-f="${f}"]`); if (again) again.focus();
+  });
+  const reset = document.getElementById("reset");
+  if (reset) reset.onclick = () => { Object.keys(filters).forEach(k => filters[k] = ""); render({ keepScroll: true }); };
+  wireAdmin(app);
+}
+
+window.addEventListener("hashchange", () => { adminState = { values: {}, errors: {}, done: "" }; render(); });
 render();
 </script>
 </body>
