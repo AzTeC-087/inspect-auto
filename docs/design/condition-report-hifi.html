@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- Draft prepared with AI assistance (Claude Code). Owner to review: Kyash Sidhu. -->
+<!-- t003 High-fidelity design of the Mechanical Condition section (US 001). Static page, no scripts.
+     Colours, type and spacing are copied from the <style> section of index.html. Example rows are invented for the design. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Condition report – high-fidelity design (t003)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Segoe UI, Arial, sans-serif; background: #f3f5f8; color: #1d2733; }
+  header { background: #12324f; color: #fff; padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+  header b { font-size: 22px; }
+  header span { opacity: .8; font-size: 14px; }
+  main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+  h1 { font-size: 24px; margin: 4px 0 12px; }
+  .draft { background: #fff; border: 1px dashed #8a94a0; border-radius: 6px; padding: 10px 14px; font-size: 13px; color: #555; }
+  .state { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: #555; margin: 28px 0 8px; }
+  .detail { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .detail h2 { font-size: 18px; margin: 0 0 8px; }
+  .price { font-size: 20px; font-weight: 700; color: #12324f; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 9px 8px; border-bottom: 1px solid #e3e6ea; vertical-align: top; }
+  th { background: #f3f5f8; }
+  .st { font-weight: 600; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+  .Good { background: #e3f5e8; color: #1b6b34; }
+  .Fair { background: #fff4d6; color: #8a5a00; }
+  .Needs { background: #fde4e4; color: #a12020; }
+  .total td, .total th { font-weight: 700; }
+  .note { font-size: 13px; color: #555; margin-top: 10px; }
+  @media (max-width: 640px) {
+    main { padding: 14px; }
+    .tbl, .tbl tbody, .tbl tfoot, .tbl tr, .tbl th, .tbl td { display: block; }
+    .tbl thead { position: absolute; left: -9999px; }
+    .tbl tr { border-bottom: 1px solid #e3e6ea; padding: 8px 0; }
+    .tbl td, .tbl th { border: 0; padding: 3px 0; background: none; }
+    .tbl td { display: flex; gap: 10px; }
+    .tbl td::before { content: attr(data-label); font-weight: 600; min-width: 108px; color: #555; flex: none; }
+  }
+</style>
+</head>
+<body>
+<header><b>Inspect Auto</b><span>Every car inspected by a partner mechanic before it is listed</span></header>
+<main>
+  <p class="draft">Draft prepared with AI assistance (Claude Code). Owner to review: Kyash Sidhu.<br>
+  t003 – High-fidelity Mechanical Condition section in three states. Same colours and type as <code>index.html</code>. All figures are invented examples, not the prototype's cars.</p>
+  <h1>Mechanical Condition – three states</h1>
+
+  <p class="state">State 1 – all areas Good, no repairs (£0 total)</p>
+  <section class="detail">
+    <h2>Mechanical Condition</h2>
+    <table class="tbl">
+      <thead><tr><th scope="col">Area</th><th scope="col">Status</th><th scope="col">Mechanic's notes</th><th scope="col">Est. repair cost</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Area">Engine</td><td data-label="Status"><span class="st Good">Good</span></td><td data-label="Mechanic's notes">Starts cleanly, no warning lights.</td><td data-label="Est. repair cost">–</td></tr>
+        <tr><td data-label="Area">Brakes</td><td data-label="Status"><span class="st Good">Good</span></td><td data-label="Mechanic's notes">Pads 75% remaining, discs within limits.</td><td data-label="Est. repair cost">–</td></tr>
+        <tr><td data-label="Area">Tyres</td><td data-label="Status"><span class="st Good">Good</span></td><td data-label="Mechanic's notes">All four at 6 mm.</td><td data-label="Est. repair cost">–</td></tr>
+        <tr><td data-label="Area">Suspension</td><td data-label="Status"><span class="st Good">Good</span></td><td data-label="Mechanic's notes">No knocks on road test.</td><td data-label="Est. repair cost">–</td></tr>
+        <tr><td data-label="Area">Bodywork</td><td data-label="Status"><span class="st Good">Good</span></td><td data-label="Mechanic's notes">Clean, no visible repairs.</td><td data-label="Est. repair cost">–</td></tr>
+        <tr><td data-label="Area">Electrics</td><td data-label="Status"><span class="st Good">Good</span></td><td data-label="Mechanic's notes">All lights and systems working.</td><td data-label="Est. repair cost">–</td></tr>
+      </tbody>
+      <tfoot><tr class="total"><th scope="row" colspan="3">Total estimated repair cost</th><td data-label="Total">£0</td></tr></tfoot>
+    </table>
+    <p class="note">Inspected by Example Motors (partner garage) on 2 Nov 2026.</p>
+  </section>
+
+  <p class="state">State 2 – a mix of Fair and Needs work</p>
+  <section class="detail">
+    <h2>Mechanical Condition</h2>
+    <table class="tbl">
+      <thead><tr><th scope="col">Area</th><th scope="col">Status</th><th scope="col">Mechanic's notes</th><th scope="col">Est. repair cost</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Area">Engine</td><td data-label="Status"><span class="st Good">Good</span></td><td data-label="Mechanic's notes">Runs smoothly, oil recently changed.</td><td data-label="Est. repair cost">–</td></tr>
+        <tr><td data-label="Area">Brakes</td><td data-label="Status"><span class="st Needs">Needs work</span></td><td data-label="Mechanic's notes">Front pads worn to 2 mm; replace pads and discs.</td><td data-label="Est. repair cost">£240</td></tr>
+        <tr><td data-label="Area">Tyres</td><td data-label="Status"><span class="st Fair">Fair</span></td><td data-label="Mechanic's notes">Rear tyres at 3 mm; replace within 6 months.</td><td data-label="Est. repair cost">£130</td></tr>
+        <tr><td data-label="Area">Suspension</td><td data-label="Status"><span class="st Good">Good</span></td><td data-label="Mechanic's notes">No issues on road test.</td><td data-label="Est. repair cost">–</td></tr>
+        <tr><td data-label="Area">Bodywork</td><td data-label="Status"><span class="st Fair">Fair</span></td><td data-label="Mechanic's notes">Scuff on rear bumper.</td><td data-label="Est. repair cost">£110</td></tr>
+        <tr><td data-label="Area">Electrics</td><td data-label="Status"><span class="st Good">Good</span></td><td data-label="Mechanic's notes">No faults found.</td><td data-label="Est. repair cost">–</td></tr>
+      </tbody>
+      <tfoot><tr class="total"><th scope="row" colspan="3">Total estimated repair cost</th><td data-label="Total">£480</td></tr></tfoot>
+    </table>
+    <p class="note">Inspected by Example Motors (partner garage) on 2 Nov 2026.</p>
+  </section>
+
+  <p class="state">State 3 – costly case</p>
+  <section class="detail">
+    <h2>Mechanical Condition</h2>
+    <table class="tbl">
+      <thead><tr><th scope="col">Area</th><th scope="col">Status</th><th scope="col">Mechanic's notes</th><th scope="col">Est. repair cost</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Area">Engine</td><td data-label="Status"><span class="st Needs">Needs work</span></td><td data-label="Mechanic's notes">Timing chain rattle on cold start and oil leak from sump; repair before long journeys.</td><td data-label="Est. repair cost">£1,350</td></tr>
+        <tr><td data-label="Area">Brakes</td><td data-label="Status"><span class="st Needs">Needs work</span></td><td data-label="Mechanic's notes">Pads and discs worn on both axles.</td><td data-label="Est. repair cost">£480</td></tr>
+        <tr><td data-label="Area">Tyres</td><td data-label="Status"><span class="st Needs">Needs work</span></td><td data-label="Mechanic's notes">Front tyres below 2 mm; replace now.</td><td data-label="Est. repair cost">£260</td></tr>
+        <tr><td data-label="Area">Suspension</td><td data-label="Status"><span class="st Needs">Needs work</span></td><td data-label="Mechanic's notes">Front lower arm bushes split, rear spring cracked.</td><td data-label="Est. repair cost">£540</td></tr>
+        <tr><td data-label="Area">Bodywork</td><td data-label="Status"><span class="st Fair">Fair</span></td><td data-label="Mechanic's notes">Rust starting on rear arches.</td><td data-label="Est. repair cost">£300</td></tr>
+        <tr><td data-label="Area">Electrics</td><td data-label="Status"><span class="st Fair">Fair</span></td><td data-label="Mechanic's notes">Driver's window motor slow.</td><td data-label="Est. repair cost">£150</td></tr>
+      </tbody>
+      <tfoot><tr class="total"><th scope="row" colspan="3">Total estimated repair cost</th><td data-label="Total">£3,080</td></tr></tfoot>
+    </table>
+    <p class="note">Inspected by Example Motors (partner garage) on 2 Nov 2026.</p>
+  </section>
+</main>
+</body>
+</html>
