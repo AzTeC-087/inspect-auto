@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Draft prepared with AI assistance (Claude Code). Owner to review: Jalil Rashid. -->
+<!-- t002 Wireframe the vehicle details page (US 001). Low fidelity, greyscale. Matches detailPage() in index.html. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="1000" viewBox="0 0 1160 1000" font-family="Arial, sans-serif" font-size="12" fill="#333">
+  <title>Wireframe: vehicle details page (desktop and phone)</title>
+  <rect width="1160" height="1000" fill="#fff"/>
+  <text x="20" y="24" font-size="13" font-weight="bold">Draft prepared with AI assistance (Claude Code). Owner to review: Jalil Rashid.</text>
+  <text x="20" y="46" font-size="18" font-weight="bold">t002 – Vehicle details page wireframe (US 001)</text>
+  <text x="20" y="64" fill="#666">Low fidelity, greyscale. Route: index.html#/car/&lt;id&gt;. Numbers in circles refer to the notes at the bottom.</text>
+
+  <!-- ================= DESKTOP FRAME ================= -->
+  <text x="20" y="92" font-weight="bold">Desktop (1280 px wide, content max 1100 px) – drawn at about half size</text>
+  <rect x="20" y="100" width="720" height="700" fill="#fafafa" stroke="#333" stroke-width="2"/>
+
+  <!-- header -->
+  <rect x="20" y="100" width="720" height="40" fill="#555"/>
+  <text x="34" y="125" fill="#fff" font-weight="bold" font-size="15">Inspect Auto</text>
+  <text x="140" y="125" fill="#eee" font-size="10">Every car inspected by a partner mechanic before it is listed</text>
+  <text x="590" y="125" fill="#fff" text-decoration="underline">Cars</text>
+  <text x="630" y="125" fill="#fff" text-decoration="underline">Admin: garages</text>
+  <circle cx="728" cy="112" r="9" fill="#fff" stroke="#333"/><text x="724" y="116" font-size="11">1</text>
+
+  <!-- back link -->
+  <text x="40" y="164" text-decoration="underline">← Back to listings</text>
+  <circle cx="160" cy="160" r="9" fill="#fff" stroke="#333"/><text x="156" y="164" font-size="11">2</text>
+
+  <!-- detail card -->
+  <rect x="36" y="174" width="688" height="570" fill="#fff" stroke="#999"/>
+
+  <!-- gallery: big first photo spanning 2 rows + 4 small -->
+  <rect x="50" y="188" width="320" height="140" fill="#ddd" stroke="#888"/>
+  <line x1="50" y1="188" x2="370" y2="328" stroke="#aaa"/><line x1="370" y1="188" x2="50" y2="328" stroke="#aaa"/>
+  <text x="190" y="262" font-weight="bold">Front</text>
+  <rect x="376" y="188" width="166" height="67" fill="#ddd" stroke="#888"/><text x="440" y="226">Interior</text>
+  <rect x="548" y="188" width="162" height="67" fill="#ddd" stroke="#888"/><text x="615" y="226">Rear</text>
+  <rect x="376" y="261" width="166" height="67" fill="#ddd" stroke="#888"/><text x="430" y="299">Engine bay</text>
+  <rect x="548" y="261" width="162" height="67" fill="#ddd" stroke="#888"/><text x="615" y="299">Boot</text>
+  <circle cx="712" cy="186" r="9" fill="#fff" stroke="#333"/><text x="708" y="190" font-size="11">3</text>
+
+  <!-- title + price -->
+  <text x="50" y="358" font-size="17" font-weight="bold">2015 Vauxhall Corsa 1.4 SE</text>
+  <text x="50" y="380" font-size="15" font-weight="bold">£4,250</text>
+  <circle cx="290" cy="354" r="9" fill="#fff" stroke="#333"/><text x="286" y="358" font-size="11">4</text>
+
+  <!-- specs -->
+  <g font-size="10">
+    <rect x="50"  y="392" width="104" height="34" fill="#eee"/><text x="56"  y="405" fill="#777">Mileage</text><text x="56"  y="419">72,900 miles</text>
+    <rect x="160" y="392" width="104" height="34" fill="#eee"/><text x="166" y="405" fill="#777">Fuel</text><text x="166" y="419">Petrol</text>
+    <rect x="270" y="392" width="104" height="34" fill="#eee"/><text x="276" y="405" fill="#777">Gearbox</text><text x="276" y="419">Manual</text>
+    <rect x="380" y="392" width="104" height="34" fill="#eee"/><text x="386" y="405" fill="#777">Previous owners</text><text x="386" y="419">4</text>
+    <rect x="490" y="392" width="104" height="34" fill="#eee"/><text x="496" y="405" fill="#777">Location</text><text x="496" y="419">Watford</text>
+    <rect x="600" y="392" width="110" height="34" fill="#eee"/><text x="606" y="405" fill="#777">Inspected</text><text x="606" y="419">28 Oct 2026</text>
+  </g>
+  <circle cx="712" cy="390" r="9" fill="#fff" stroke="#333"/><text x="708" y="394" font-size="11">5</text>
+
+  <!-- Mechanical Condition -->
+  <text x="50" y="458" font-size="15" font-weight="bold">Mechanical Condition</text>
+  <circle cx="220" cy="454" r="9" fill="#fff" stroke="#333"/><text x="216" y="458" font-size="11">6</text>
+  <rect x="50" y="468" width="660" height="26" fill="#e6e6e6"/>
+  <g font-weight="bold"><text x="58" y="485">Area</text><text x="158" y="485">Status</text><text x="268" y="485">Mechanic's notes</text><text x="598" y="485">Est. repair cost</text></g>
+  <g id="rows">
+    <line x1="50" y1="520" x2="710" y2="520" stroke="#ccc"/><text x="58" y="512">Engine</text><rect x="156" y="500" width="50" height="16" rx="8" fill="#ccc"/><text x="164" y="512" font-size="10">Good</text><rect x="268" y="504" width="250" height="8" fill="#ddd"/><text x="598" y="512">–</text>
+    <line x1="50" y1="546" x2="710" y2="546" stroke="#ccc"/><text x="58" y="538">Brakes</text><rect x="156" y="526" width="80" height="16" rx="8" fill="#999"/><text x="162" y="538" font-size="10" fill="#fff">Needs work</text><rect x="268" y="530" width="300" height="8" fill="#ddd"/><text x="598" y="538">£260</text>
+    <line x1="50" y1="572" x2="710" y2="572" stroke="#ccc"/><text x="58" y="564">Tyres</text><rect x="156" y="552" width="50" height="16" rx="8" fill="#ccc"/><text x="164" y="564" font-size="10">Good</text><rect x="268" y="556" width="160" height="8" fill="#ddd"/><text x="598" y="564">–</text>
+    <line x1="50" y1="598" x2="710" y2="598" stroke="#ccc"/><text x="58" y="590">Suspension</text><rect x="156" y="578" width="44" height="16" rx="8" fill="#bbb"/><text x="164" y="590" font-size="10">Fair</text><rect x="268" y="582" width="240" height="8" fill="#ddd"/><text x="598" y="590">£180</text>
+    <line x1="50" y1="624" x2="710" y2="624" stroke="#ccc"/><text x="58" y="616">Bodywork</text><rect x="156" y="604" width="44" height="16" rx="8" fill="#bbb"/><text x="164" y="616" font-size="10">Fair</text><rect x="268" y="608" width="270" height="8" fill="#ddd"/><text x="598" y="616">£150</text>
+    <line x1="50" y1="650" x2="710" y2="650" stroke="#ccc"/><text x="58" y="642">Electrics</text><rect x="156" y="630" width="50" height="16" rx="8" fill="#ccc"/><text x="164" y="642" font-size="10">Good</text><rect x="268" y="634" width="110" height="8" fill="#ddd"/><text x="598" y="642">–</text>
+  </g>
+  <line x1="50" y1="678" x2="710" y2="678" stroke="#888"/>
+  <text x="58" y="670" font-weight="bold">Total estimated repair cost</text><text x="598" y="670" font-weight="bold">£590</text>
+  <circle cx="712" cy="666" r="9" fill="#fff" stroke="#333"/><text x="708" y="670" font-size="11">7</text>
+  <text x="50" y="702" font-size="11" fill="#666">Inspected by Oxhey Auto Care (partner garage). Prototype: all cars, garages and figures are invented sample data.</text>
+  <circle cx="712" cy="698" r="9" fill="#fff" stroke="#333"/><text x="708" y="702" font-size="11">8</text>
+
+  <!-- footer -->
+  <text x="40" y="770" font-size="10" fill="#666">Sample data for a university project (CS3617, Group A11). All cars, garages and figures are invented.</text>
+
+  <!-- ================= PHONE FRAME ================= -->
+  <text x="780" y="92" font-weight="bold">Phone (360 px wide) – drawn at about 0.95×</text>
+  <rect x="780" y="100" width="344" height="780" rx="14" fill="#fafafa" stroke="#333" stroke-width="2"/>
+  <rect x="780" y="100" width="344" height="74" rx="14" fill="#555"/><rect x="780" y="150" width="344" height="24" fill="#555"/>
+  <text x="794" y="122" fill="#fff" font-weight="bold" font-size="15">Inspect Auto</text>
+  <text x="794" y="140" fill="#eee" font-size="9">Every car inspected by a partner mechanic before it is listed</text>
+  <text x="980" y="162" fill="#fff" text-decoration="underline" font-size="11">Cars</text><text x="1014" y="162" fill="#fff" text-decoration="underline" font-size="11">Admin: garages</text>
+  <text x="794" y="194" text-decoration="underline" font-size="11">← Back to listings</text>
+  <rect x="792" y="202" width="320" height="660" fill="#fff" stroke="#999"/>
+  <!-- gallery, same 2fr 1fr 1fr grid, shorter -->
+  <rect x="802" y="212" width="150" height="110" fill="#ddd" stroke="#888"/><text x="860" y="270" font-size="11" font-weight="bold">Front</text>
+  <rect x="956" y="212" width="72" height="53" fill="#ddd" stroke="#888"/><text x="962" y="242" font-size="9">Interior</text>
+  <rect x="1032" y="212" width="72" height="53" fill="#ddd" stroke="#888"/><text x="1050" y="242" font-size="9">Rear</text>
+  <rect x="956" y="269" width="72" height="53" fill="#ddd" stroke="#888"/><text x="960" y="299" font-size="9">Engine bay</text>
+  <rect x="1032" y="269" width="72" height="53" fill="#ddd" stroke="#888"/><text x="1050" y="299" font-size="9">Boot</text>
+  <text x="802" y="346" font-size="14" font-weight="bold">2015 Vauxhall Corsa 1.4 SE</text>
+  <text x="802" y="366" font-size="13" font-weight="bold">£4,250</text>
+  <!-- specs stacked: one per row -->
+  <g font-size="10">
+    <rect x="802" y="376" width="300" height="22" fill="#eee"/><text x="808" y="391">Mileage · 72,900 miles</text>
+    <rect x="802" y="402" width="300" height="22" fill="#eee"/><text x="808" y="417">Fuel · Petrol</text>
+    <rect x="802" y="428" width="300" height="22" fill="#eee"/><text x="808" y="443">Gearbox · Manual</text>
+    <rect x="802" y="454" width="300" height="22" fill="#eee"/><text x="808" y="469">Previous owners · 4</text>
+    <rect x="802" y="480" width="300" height="22" fill="#eee"/><text x="808" y="495">Location · Watford</text>
+    <rect x="802" y="506" width="300" height="22" fill="#eee"/><text x="808" y="521">Inspected · 28 Oct 2026</text>
+  </g>
+  <text x="802" y="552" font-size="14" font-weight="bold">Mechanical Condition</text>
+  <!-- table rows become stacked cards with labels -->
+  <g font-size="10">
+    <text x="802" y="574" fill="#777" font-weight="bold">Area</text><text x="912" y="574">Engine</text>
+    <text x="802" y="590" fill="#777" font-weight="bold">Status</text><rect x="910" y="580" width="40" height="13" rx="6" fill="#ccc"/><text x="915" y="590">Good</text>
+    <text x="802" y="606" fill="#777" font-weight="bold">Mechanic's notes</text><rect x="912" y="599" width="180" height="7" fill="#ddd"/>
+    <text x="802" y="622" fill="#777" font-weight="bold">Est. repair cost</text><text x="912" y="622">–</text>
+    <line x1="802" y1="630" x2="1102" y2="630" stroke="#ccc"/>
+    <text x="802" y="648" fill="#777" font-weight="bold">Area</text><text x="912" y="648">Brakes</text>
+    <text x="802" y="664" fill="#777" font-weight="bold">Status</text><rect x="910" y="654" width="64" height="13" rx="6" fill="#999"/><text x="914" y="664" fill="#fff">Needs work</text>
+    <text x="802" y="680" fill="#777" font-weight="bold">Mechanic's notes</text><rect x="912" y="673" width="180" height="7" fill="#ddd"/><rect x="912" y="684" width="120" height="7" fill="#ddd"/>
+    <text x="802" y="706" fill="#777" font-weight="bold">Est. repair cost</text><text x="912" y="706">£260</text>
+    <line x1="802" y1="714" x2="1102" y2="714" stroke="#ccc"/>
+  </g>
+  <text x="900" y="736" fill="#777" font-size="11">… same card for Tyres, Suspension,</text>
+  <text x="900" y="752" fill="#777" font-size="11">Bodywork, Electrics …</text>
+  <line x1="802" y1="770" x2="1102" y2="770" stroke="#888"/>
+  <text x="802" y="790" font-weight="bold" font-size="11">Total estimated repair cost</text>
+  <text x="802" y="808" font-size="10" fill="#777" font-weight="bold">Total</text><text x="912" y="808" font-weight="bold" font-size="11">£590</text>
+  <text x="802" y="834" font-size="9" fill="#666">Inspected by Oxhey Auto Care (partner garage).</text>
+  <text x="802" y="848" font-size="9" fill="#666">Prototype: all figures are invented sample data.</text>
+  <circle cx="1112" cy="780" r="9" fill="#fff" stroke="#333"/><text x="1108" y="784" font-size="11">9</text>
+
+  <!-- ================= NOTES ================= -->
+  <g font-size="11">
+    <text x="20" y="830" font-weight="bold" font-size="13">Notes</text>
+    <text x="20" y="850">1  Header: logo (link to listings), tagline, nav "Cars" and "Admin: garages". Wraps onto extra lines on a phone.</text>
+    <text x="20" y="866">2  Back link returns to the listings page (#/).</text>
+    <text x="20" y="882">3  Photo gallery: 5 placeholder boxes (Front, Interior, Rear, Engine bay, Boot). Front is large and spans two rows.</text>
+    <text x="20" y="898">4  Heading = year, make, model; price below. Rating and HPI/ID badges are hidden (FEATURES off, not Sprint 1).</text>
+    <text x="20" y="914">5  Specs tiles: mileage, fuel, gearbox, previous owners, location, inspection date. One column on a phone.</text>
+    <text x="20" y="930">6  Mechanical Condition table: Area | Status (Good / Fair / Needs work label) | Mechanic's notes | Est. repair cost ("–" = none).</text>
+    <text x="20" y="946">7  Total row = sum of the six row costs ("£0" when none).</text>
+    <text x="20" y="962">8  Note naming the partner garage that did the inspection.</text>
+    <text x="20" y="978">9  Under 640 px each table row becomes a stacked card; column names show as labels so nothing runs off the screen.</text>
+  </g>
+</svg>
