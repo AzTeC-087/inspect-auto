@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Draft prepared with AI assistance (Claude Code). Owner to review: Kyash Sidhu. -->
 <!-- t008 Wireframe the garage registration form (U002-1). Low fidelity, greyscale. Matches adminPage() / GARAGE_FIELDS in index.html. -->
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1180" viewBox="0 0 1200 1180" font-family="Arial, sans-serif" font-size="12" fill="#333">
 <title>Wireframe: garage registration page (empty form, validation errors, success, registered garages list)</title>
 <rect width="1200" height="1180" fill="#fff"/>
-<text x="20" y="24" font-size="13" font-weight="bold">Draft prepared with AI assistance (Claude Code). Owner to review: Kyash Sidhu.</text>
 <text x="20" y="46" font-size="18" font-weight="bold">t008 – Garage registration wireframe (U002-1)</text>
 <text x="20" y="64" fill="#666">Low fidelity, greyscale. Route: index.html#/admin/garages. Desktop frames (about half size). On a phone the form is one column and each list row is a stacked card.</text>
 <text x="20" y="92" font-weight="bold">1  Empty form (first visit)</text>

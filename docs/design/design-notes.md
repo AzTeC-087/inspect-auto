@@ -1,5 +1,3 @@
-Draft prepared with AI assistance (Claude Code). Owner to review: Kyash Sidhu.
-
 # t003 – Design notes for the condition report
 
 Companion to `condition-report-hifi.html`. All values are taken from the `<style>` section of `index.html`; nothing in the prototype was restyled.

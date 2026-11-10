@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Draft prepared with AI assistance (Claude Code). Owner to review: Jalil Rashid. -->
 <!-- t002 Wireframe the vehicle details page (US 001). Low fidelity, greyscale. Matches detailPage() in index.html. -->
 <svg xmlns="http://www.w3.org/2000/svg" width="1160" height="1000" viewBox="0 0 1160 1000" font-family="Arial, sans-serif" font-size="12" fill="#333">
   <title>Wireframe: vehicle details page (desktop and phone)</title>
   <rect width="1160" height="1000" fill="#fff"/>
-  <text x="20" y="24" font-size="13" font-weight="bold">Draft prepared with AI assistance (Claude Code). Owner to review: Jalil Rashid.</text>
   <text x="20" y="46" font-size="18" font-weight="bold">t002 – Vehicle details page wireframe (US 001)</text>
   <text x="20" y="64" fill="#666">Low fidelity, greyscale. Route: index.html#/car/&lt;id&gt;. Numbers in circles refer to the notes at the bottom.</text>
 

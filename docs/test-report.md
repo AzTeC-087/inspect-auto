@@ -1,5 +1,3 @@
-Draft prepared with AI assistance (Claude Code). Owner to review: Yaasir Hassan (US 001), Jalil Rashid (U002-1).
-
 # t006 / t011 – Sprint 1 test report
 
 Tests follow each story's "how to demo". They were run on 10 Nov 2026 with Playwright (Chromium) against `index.html` opened from `file://` on branch `sprint1-completion`, at **1280 px** (desktop) and **360 px** (phone) wide. Each width used a fresh browser profile, so the garage list started from the six sample garages. The test script was kept outside the repo. Screenshots are in `docs/test-evidence/` (full page; PNG is the only non-text file type in the repo, agreed for evidence).

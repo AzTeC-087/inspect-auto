@@ -39,4 +39,4 @@ Only US 001 and U002-1. Editing or removing garages is U002-2 (not in Sprint 1).
 | `docs/test-report.md`, `docs/test-evidence/` | t006 / t011 – test report and screenshots |
 | `docs/genai-log.md` | Record of generative AI use |
 
-Parts of this prototype and its docs were drafted with AI assistance (Claude); see `docs/genai-log.md`.
+AI (Claude) was used for design and documentation of this prototype; see docs/genai-log.md.
