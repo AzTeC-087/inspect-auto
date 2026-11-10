@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!--
+  Inspect Auto – clickable prototype for Sprint 1 (User 001: view a car's mechanical condition).
+  HTML VERSION: this whole site is this one file. Open it in any browser, no internet needed.
+  HOW TO EDIT:
+    - Add / change cars ......... the "cars" list in the <script> section (SECTION 1)
+    - Change the filters ........ listPage() (SECTION 3)
+    - Change the car details page detailPage() (SECTION 4)
+    - Change colours / layout ... the <style> section below
+  All cars, garages and figures are invented sample data.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inspect Auto – Prototype</title>
+<style>
+  /* ===== STYLING: colours, spacing and layout. #12324f is the main brand blue. ===== */
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Segoe UI, Arial, sans-serif; background: #f3f5f8; color: #1d2733; }
+  header { background: #12324f; color: #fff; padding: 14px 24px; display: flex; align-items: center; gap: 16px; }
+  header a { color: #fff; text-decoration: none; font-size: 22px; font-weight: 700; }
+  header span { opacity: .8; font-size: 14px; }
+  main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+  /* Filter bar on the listings page */
+  .filters { background: #fff; border-radius: 8px; padding: 14px; display: flex; flex-wrap: wrap; gap: 14px; align-items: end; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .filters label { display: flex; flex-direction: column; font-size: 13px; gap: 4px; }
+  .filters select { padding: 6px 8px; min-width: 150px; }
+  .filters button { padding: 7px 12px; cursor: pointer; }
+  .count { margin: 14px 0 8px; font-size: 14px; color: #555; }
+  /* Car cards on the listings page */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  .card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.08); cursor: pointer; text-decoration: none; color: inherit; display: block; }
+  .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+  .photo { height: 150px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; font-weight: 600; }
+  .card .body { padding: 12px 14px; }
+  .card h3 { margin: 0 0 4px; font-size: 17px; }
+  .price { font-size: 20px; font-weight: 700; color: #12324f; }
+  .meta { font-size: 13px; color: #555; margin-top: 4px; }
+  .badge { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 10px; margin: 6px 6px 0 0; }
+  .rating { background: #12324f; color: #fff; }
+  .ok { background: #e3f5e8; color: #1b6b34; }
+  .empty { padding: 30px; text-align: center; background: #fff; border-radius: 8px; }
+  /* Car details page */
+  .back { display: inline-block; margin-bottom: 12px; color: #12324f; }
+  .detail { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  .gallery .photo { height: 120px; border-radius: 6px; font-size: 14px; }
+  .gallery .photo:first-child { grid-row: span 2; height: 248px; font-size: 18px; }
+  .specs { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; margin: 12px 0 18px; }
+  .specs div { background: #f3f5f8; padding: 8px 10px; border-radius: 6px; font-size: 14px; }
+  .specs b { display: block; font-size: 12px; color: #666; font-weight: 400; }
+  /* Mechanical Condition table. .Good / .Fair / .Needs colour the status labels. */
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 9px 8px; border-bottom: 1px solid #e3e6ea; vertical-align: top; }
+  th { background: #f3f5f8; }
+  .st { font-weight: 600; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+  .Good { background: #e3f5e8; color: #1b6b34; }
+  .Fair { background: #fff4d6; color: #8a5a00; }
+  .Needs { background: #fde4e4; color: #a12020; }
+  .total td { font-weight: 700; }
+  .note { font-size: 13px; color: #555; margin-top: 10px; }
+</style>
+</head>
+<body>
+<header>
+  <a href="#/">Inspect Auto</a>
+  <span>Every car inspected by a partner mechanic before it is listed</span>
+</header>
+<!-- The page content is drawn here by the script below (listings page or car details page). -->
+<main id="app"></main>
+
+<script>
+// ===== SECTION 1: CAR DATA (all invented for the prototype) =====
+// To add a car: copy one { ... } block, give it the next id number, and change the values.
+// colour = colour of the photo placeholder boxes.  rating = inspection rating out of 5.
+// report rows are: [area, status ("Good" / "Fair" / "Needs work"), mechanic's notes, repair cost in £ (0 = none)]
+const cars = [
+  { id: 1, make: "Ford", model: "Fiesta 1.0 EcoBoost Zetec", year: 2017, price: 7495, mileage: 48200, location: "Luton", fuel: "Petrol", gearbox: "Manual", owners: 2, colour: "#2b6cb0", rating: 4.5,
+    inspected: "3 Nov 2026", garage: "Bury Park Motors (partner garage)",
+    report: [
+      ["Engine", "Good", "Starts cleanly, no warning lights, oil changed at last service.", 0],
+      ["Brakes", "Good", "Pads 70% remaining, discs within limits.", 0],
+      ["Tyres", "Fair", "Rear tyres at 3 mm; replace within 6 months.", 120],
+      ["Suspension", "Good", "No knocks on road test.", 0],
+      ["Bodywork", "Good", "Minor stone chips on bonnet only.", 0],
+      ["Electrics", "Good", "All lights, windows and infotainment working.", 0] ] },
+  { id: 2, make: "Vauxhall", model: "Corsa 1.4 SE", year: 2015, price: 4250, mileage: 72900, location: "Watford", fuel: "Petrol", gearbox: "Manual", owners: 4, colour: "#718096", rating: 3.0,
+    inspected: "28 Oct 2026", garage: "Oxhey Auto Care (partner garage)",
+    report: [
+      ["Engine", "Good", "Runs smoothly; timing chain quiet.", 0],
+      ["Brakes", "Needs work", "Front pads worn to 2 mm and discs lipped; replace both.", 260],
+      ["Tyres", "Good", "All four at 5 mm or more.", 0],
+      ["Suspension", "Fair", "Front drop links knocking over bumps.", 180],
+      ["Bodywork", "Fair", "Scuffed rear bumper and dent in driver's door.", 150],
+      ["Electrics", "Good", "No faults found.", 0] ] },
+  { id: 3, make: "Volkswagen", model: "Golf 1.6 TDI Match", year: 2019, price: 11995, mileage: 61400, location: "Uxbridge", fuel: "Diesel", gearbox: "Manual", owners: 1, colour: "#c53030", rating: 4.0,
+    inspected: "5 Nov 2026", garage: "Hillingdon Service Centre (partner garage)",
+    report: [
+      ["Engine", "Fair", "Small oil seep from cam cover gasket; no leak onto ground.", 140],
+      ["Brakes", "Good", "Pads and discs in good condition.", 0],
+      ["Tyres", "Good", "Matching brand, 6 mm all round.", 0],
+      ["Suspension", "Good", "No issues on road test.", 0],
+      ["Bodywork", "Good", "Clean, no visible repairs.", 0],
+      ["Electrics", "Good", "DPF regeneration completed during test drive; no warning lights.", 0] ] },
+  { id: 4, make: "Toyota", model: "Yaris 1.5 Hybrid Icon", year: 2018, price: 10450, mileage: 39800, location: "Slough", fuel: "Hybrid", gearbox: "Automatic", owners: 1, colour: "#38a169", rating: 5.0,
+    inspected: "1 Nov 2026", garage: "Langley Hybrid Specialists (partner garage)",
+    report: [
+      ["Engine", "Good", "Hybrid battery health check passed.", 0],
+      ["Brakes", "Good", "Low wear thanks to regenerative braking.", 0],
+      ["Tyres", "Good", "All four at 6 mm.", 0],
+      ["Suspension", "Good", "No faults found.", 0],
+      ["Bodywork", "Good", "Excellent condition.", 0],
+      ["Electrics", "Good", "Reversing camera and all systems working.", 0] ] },
+  { id: 5, make: "BMW", model: "320d SE", year: 2014, price: 6750, mileage: 98300, location: "Reading", fuel: "Diesel", gearbox: "Automatic", owners: 3, colour: "#1a202c", rating: 2.5,
+    inspected: "30 Oct 2026", garage: "Caversham Car Clinic (partner garage)",
+    report: [
+      ["Engine", "Needs work", "Timing chain rattle on cold start; replacement recommended soon.", 950],
+      ["Brakes", "Good", "Recently replaced, receipts seen.", 0],
+      ["Tyres", "Fair", "Front tyres at 3 mm.", 180],
+      ["Suspension", "Needs work", "Front lower arm bushes split.", 320],
+      ["Bodywork", "Fair", "Kerbed alloys and faded paint on roof.", 0],
+      ["Electrics", "Good", "No faults stored.", 0] ] },
+  { id: 6, make: "Kia", model: "Picanto 1.0 2", year: 2020, price: 8295, mileage: 24600, location: "Hemel Hempstead", fuel: "Petrol", gearbox: "Manual", owners: 1, colour: "#d69e2e", rating: 4.5,
+    inspected: "4 Nov 2026", garage: "Apsley Motor Works (partner garage)",
+    report: [
+      ["Engine", "Good", "Full manufacturer service history.", 0],
+      ["Brakes", "Good", "Pads 80% remaining.", 0],
+      ["Tyres", "Good", "All four at 7 mm.", 0],
+      ["Suspension", "Good", "No issues.", 0],
+      ["Bodywork", "Fair", "Stone chips on front bumper.", 90],
+      ["Electrics", "Good", "All working; remaining manufacturer warranty until 2027.", 0] ] }
+];
+
+// ===== SECTION 2: HELPERS =====
+// filters = what the user has picked in the filter bar ("" means Any).
+const filters = { make: "", maxPrice: "", maxMiles: "", location: "" };
+const gbp = n => "£" + n.toLocaleString("en-GB");
+const miles = n => n.toLocaleString("en-GB") + " miles";
+const photo = (c, label) => `<div class="photo" style="background:${c.colour}">${label}</div>`;
+const options = (values, chosen, fmt = v => v) =>
+  values.map(v => `<option value="${v}" ${String(v) === chosen ? "selected" : ""}>${fmt(v)}</option>`).join("");
+
+// ===== SECTION 3: LISTINGS PAGE =====
+// Keeps only the cars that match every chosen filter, then draws the filter bar and one card per car.
+// To change the price / mileage choices, edit the number lists in the Max price / Max mileage <select>s.
+function listPage() {
+  const shown = cars.filter(c =>
+    (!filters.make || c.make === filters.make) &&
+    (!filters.maxPrice || c.price <= +filters.maxPrice) &&
+    (!filters.maxMiles || c.mileage <= +filters.maxMiles) &&
+    (!filters.location || c.location === filters.location));
+  const makes = [...new Set(cars.map(c => c.make))].sort();
+  const places = [...new Set(cars.map(c => c.location))].sort();
+  return `
+    <div class="filters">
+      <label>Make<select data-f="make"><option value="">Any</option>${options(makes, filters.make)}</select></label>
+      <label>Max price<select data-f="maxPrice"><option value="">Any</option>${options([5000, 7500, 10000, 12500], filters.maxPrice, gbp)}</select></label>
+      <label>Max mileage<select data-f="maxMiles"><option value="">Any</option>${options([30000, 50000, 75000, 100000], filters.maxMiles, miles)}</select></label>
+      <label>Location<select data-f="location"><option value="">Any</option>${options(places, filters.location)}</select></label>
+      <button id="reset">Clear filters</button>
+    </div>
+    <div class="count">${shown.length} inspected car${shown.length === 1 ? "" : "s"} found</div>
+    ${shown.length ? `<div class="grid">${shown.map(c => `
+      <a class="card" href="#/car/${c.id}">
+        ${photo(c, c.make + " " + c.model)}
+        <div class="body">
+          <h3>${c.year} ${c.make} ${c.model}</h3>
+          <div class="price">${gbp(c.price)}</div>
+          <div class="meta">${miles(c.mileage)} · ${c.fuel} · ${c.gearbox} · ${c.location}</div>
+          <span class="badge rating">Inspection rating ${c.rating.toFixed(1)} / 5</span>
+          <span class="badge ok">HPI clear</span><span class="badge ok">Seller ID verified</span>
+        </div>
+      </a>`).join("")}</div>` : `<div class="empty">No cars match these filters.</div>`}`;
+}
+
+// ===== SECTION 4: CAR DETAILS PAGE =====
+// Photos (placeholders), specs, badges and the Mechanical Condition table with a total repair cost.
+function detailPage(c) {
+  const total = c.report.reduce((sum, r) => sum + r[3], 0);
+  return `
+    <a class="back" href="#/">← Back to listings</a>
+    <div class="detail">
+      <div class="gallery">${photo(c, "Front")}${photo(c, "Interior")}${photo(c, "Rear")}${photo(c, "Engine bay")}${photo(c, "Boot")}</div>
+      <h2 style="margin:0">${c.year} ${c.make} ${c.model}</h2>
+      <div class="price">${gbp(c.price)}</div>
+      <span class="badge rating">Inspection rating ${c.rating.toFixed(1)} / 5</span>
+      <span class="badge ok">HPI clear: no finance, not written off, not stolen</span>
+      <span class="badge ok">Seller ID verified</span>
+      <div class="specs">
+        <div><b>Mileage</b>${miles(c.mileage)}</div><div><b>Fuel</b>${c.fuel}</div>
+        <div><b>Gearbox</b>${c.gearbox}</div><div><b>Previous owners</b>${c.owners}</div>
+        <div><b>Location</b>${c.location}</div><div><b>Inspected</b>${c.inspected}</div>
+      </div>
+      <h3>Mechanical Condition</h3>
+      <table>
+        <tr><th>Area</th><th>Status</th><th>Mechanic's notes</th><th>Est. repair cost</th></tr>
+        ${c.report.map(([area, status, notes, cost]) => `
+          <tr><td>${area}</td><td><span class="st ${status.split(" ")[0]}">${status}</span></td><td>${notes}</td><td>${cost ? gbp(cost) : "–"}</td></tr>`).join("")}
+        <tr class="total"><td colspan="3">Total estimated repair cost</td><td>${total ? gbp(total) : "£0"}</td></tr>
+      </table>
+      <p class="note">Inspected by ${c.garage}. Prototype: all cars, garages and figures are invented sample data.</p>
+    </div>`;
+}
+
+// ===== SECTION 5: PAGE SWITCHING =====
+// The address ending decides the page: #/car/3 shows car 3, anything else shows the listings.
+// This is what makes the Back button and car links work without extra files.
+function render() {
+  const app = document.getElementById("app");
+  const m = location.hash.match(/^#\/car\/(\d+)$/);
+  const car = m && cars.find(c => c.id === +m[1]);
+  app.innerHTML = car ? detailPage(car) : listPage();
+  window.scrollTo(0, 0);
+  if (car) return;
+  app.querySelectorAll("select").forEach(s => s.onchange = () => { filters[s.dataset.f] = s.value; render(); });
+  document.getElementById("reset").onclick = () => { Object.keys(filters).forEach(k => filters[k] = ""); render(); };
+}
+
+window.addEventListener("hashchange", render);
+render();
+</script>
+</body>
+</html>
