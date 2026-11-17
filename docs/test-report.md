@@ -68,7 +68,6 @@ Results recorded below are the ones observed in that run. **Summary: desktop 15/
 ## Sign-off
 
 US 001 (t006)
-Tester: ____ Date: ____
-
+Tester: Yaasir Hassan Date: 17 Nov 2026
 U002-1 (t011)
 Tester: ____ Date: ____
